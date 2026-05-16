@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MW_Apps – unabhaengiger Entwickler von mobilen Anwendungen aus Deutschland.">
+<meta name="description" content="MW_Apps – unabhängiger Entwickler mobiler Anwendungen aus Deutschland.">
 <meta name="robots" content="index, follow">
 <title>MW_Apps</title>
 <style>
   :root {
     --bg: #0a0a0f;
-    --bg-soft: #14141c;
-    --fg: #e8e8ee;
-    --fg-mute: #9ea0aa;
+    --panel: #14141c;
+    --panel-soft: #191923;
+    --fg: #ececf2;
+    --muted: #a3a5b0;
     --accent: #6c8cff;
-    --accent-soft: rgba(108, 140, 255, 0.12);
-    --border: #232331;
+    --accent-2: #53d6b5;
+    --border: #292936;
+    --shadow: rgba(0, 0, 0, 0.3);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -27,147 +29,194 @@
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
   .wrap {
-    max-width: 760px;
+    max-width: 980px;
     margin: 0 auto;
-    padding: 64px 24px 96px;
+    padding: 56px 22px 86px;
   }
   header {
-    margin-bottom: 56px;
-    padding-bottom: 32px;
+    margin-bottom: 48px;
+    padding-bottom: 34px;
     border-bottom: 1px solid var(--border);
   }
+  .eyebrow {
+    color: var(--accent-2);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
   h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: 0;
+    margin-bottom: 14px;
   }
   .tag {
-    color: var(--fg-mute);
-    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 650px;
+    font-size: 1.05rem;
   }
   h2 {
     font-size: 1.25rem;
-    font-weight: 600;
-    margin: 48px 0 16px;
-    letter-spacing: -0.01em;
+    margin: 42px 0 16px;
   }
-  p { margin-bottom: 16px; color: var(--fg); }
-  p.mute { color: var(--fg-mute); font-size: 0.95rem; }
   .apps {
     display: grid;
     gap: 16px;
-    margin-top: 16px;
   }
   .app {
-    background: var(--bg-soft);
+    background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
-    transition: border-color 0.15s ease;
+    border-radius: 8px;
+    padding: 22px;
+    box-shadow: 0 16px 36px var(--shadow);
   }
-  .app:hover { border-color: var(--accent); }
+  .app.featured {
+    border-color: rgba(108, 140, 255, 0.65);
+    background: linear-gradient(135deg, rgba(108, 140, 255, 0.12), rgba(83, 214, 181, 0.08)), var(--panel);
+  }
+  .app-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
   .app-name {
-    font-weight: 600;
-    font-size: 1.05rem;
-    margin-bottom: 4px;
+    font-weight: 760;
+    font-size: 1.14rem;
+  }
+  .badge {
+    color: var(--accent-2);
+    border: 1px solid rgba(83, 214, 181, 0.45);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    white-space: nowrap;
   }
   .app-desc {
-    color: var(--fg-mute);
-    font-size: 0.95rem;
-    margin-bottom: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
   }
   .app-meta {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
-    font-size: 0.85rem;
-    color: var(--fg-mute);
+    align-items: center;
+    font-size: 0.88rem;
+    color: var(--muted);
   }
-  .app-meta code {
-    background: var(--accent-soft);
+  code {
+    background: rgba(108, 140, 255, 0.12);
     color: var(--accent);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 5px;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.85rem;
+    font-size: 0.86rem;
+  }
+  .legal {
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+    background: var(--panel-soft);
+  }
+  .legal p {
+    color: var(--muted);
+    margin-bottom: 12px;
   }
   footer {
-    margin-top: 72px;
-    padding-top: 32px;
+    margin-top: 48px;
+    padding-top: 30px;
     border-top: 1px solid var(--border);
-    color: var(--fg-mute);
+    color: var(--muted);
     font-size: 0.9rem;
   }
-  footer p { color: var(--fg-mute); margin-bottom: 8px; }
   .legal-grid {
     display: grid;
     grid-template-columns: max-content 1fr;
-    gap: 4px 16px;
-    margin-top: 12px;
+    gap: 5px 16px;
+    margin-top: 14px;
   }
-  .legal-grid dt { color: var(--fg-mute); }
+  .legal-grid dt { color: var(--muted); }
   .legal-grid dd { color: var(--fg); }
+  @media (max-width: 720px) {
+    .wrap { padding-top: 36px; }
+    .app-top { flex-direction: column; }
+    .legal-grid { grid-template-columns: 1fr; gap: 2px 0; }
+    .legal-grid dd { margin-bottom: 8px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-
+<main class="wrap">
   <header>
-    <h1>MW_Apps</h1>
-    <p class="tag">Unabhaengiger Entwickler mobiler Anwendungen.</p>
+    <p class="eyebrow">MW_Apps</p>
+    <h1>Apps mit Fokus auf Alltag, Übersicht und lokale Kontrolle.</h1>
+    <p class="tag">Offizielle Webseite von MW_Apps mit Support-, Datenschutz- und App-Informationen.</p>
   </header>
 
   <section>
-    <h2>Veroeffentlichte Apps</h2>
-    <p class="mute">Eine Auswahl der Apps, die unter MW_Apps im Google Play Store veroeffentlicht sind.</p>
-
+    <h2>Apps und rechtliche Informationen</h2>
     <div class="apps">
-      <div class="app">
-        <div class="app-name">ChromaFlow &mdash; Farb-Puzzle</div>
-        <div class="app-desc">Casual Color-Puzzle fuer Android. Ein meditatives Farbordnungs-Spiel mit verschiedenen Themes.</div>
-        <div class="app-meta">
-          <span>Plattform: Android</span>
-          <code>com.mw_apps.chromaflow</code>
-          <a href="https://play.google.com/store/apps/details?id=com.mw_apps.chromaflow" rel="noopener">Im Play Store ansehen</a>
+      <article class="app featured">
+        <div class="app-top">
+          <div class="app-name">TerminKompass</div>
+          <span class="badge">Android & iOS</span>
         </div>
-      </div>
-
-      <div class="app">
-        <div class="app-name">JobTrace &mdash; Zeiterfassung</div>
-        <div class="app-desc">Einfache Zeiterfassung fuer Selbststaendige und Mitarbeiter.</div>
+        <p class="app-desc">TerminKompass ist eine lokale Termin-App mit Erinnerungen, Kalenderimport, Backup, Teilen, Widget und optionalem Pro-Kauf.</p>
         <div class="app-meta">
-          <span>Plattform: Android</span>
-          <code>de.mwapps.jobtrace</code>
-          <a href="https://play.google.com/store/apps/details?id=de.mwapps.jobtrace" rel="noopener">Im Play Store ansehen</a>
-        </div>
-      </div>
-
-      <div class="app">
-        <div class="app-name">TerminKompass &mdash; Planner</div>
-        <div class="app-desc">Schlanker Termin- und Aufgabenplaner fuer den Alltag.</div>
-        <div class="app-meta">
-          <span>Plattform: Android</span>
           <code>com.terminkompass.app</code>
-          <a href="https://play.google.com/store/apps/details?id=com.terminkompass.app" rel="noopener">Im Play Store ansehen</a>
+          <a href="terminkompass/">TerminKompass-Seite</a>
+          <a href="terminkompass/datenschutz.html">Datenschutz</a>
+          <a href="terminkompass/support.html">Support</a>
+          <a href="https://play.google.com/store/apps/details?id=com.terminkompass.app" rel="noopener">Google Play</a>
         </div>
-      </div>
+      </article>
+
+      <article class="app">
+        <div class="app-top">
+          <div class="app-name">ChromaFlow – Farb-Puzzle</div>
+          <span class="badge">Android</span>
+        </div>
+        <p class="app-desc">Casual Color-Puzzle für Android. Ein meditatives Farbordnungs-Spiel mit verschiedenen Themes.</p>
+        <div class="app-meta">
+          <code>com.mw_apps.chromaflow</code>
+          <a href="https://play.google.com/store/apps/details?id=com.mw_apps.chromaflow" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="app">
+        <div class="app-top">
+          <div class="app-name">JobTrace – Zeiterfassung</div>
+          <span class="badge">Android</span>
+        </div>
+        <p class="app-desc">Einfache Zeiterfassung für Selbstständige und Mitarbeiter.</p>
+        <div class="app-meta">
+          <code>de.mwapps.jobtrace</code>
+          <a href="https://play.google.com/store/apps/details?id=de.mwapps.jobtrace" rel="noopener">Google Play</a>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section>
-    <h2>Datenschutz</h2>
-    <p>Diese Webseite selbst verarbeitet keine personenbezogenen Daten und setzt keine Cookies oder Tracking-Pixel ein. Es findet keine Analyse, keine Werbeauslieferung und keine Weitergabe an Dritte statt.</p>
-    <p>Hosting: GitHub Pages (GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA). Beim Aufruf der Seite werden technisch erforderliche Verbindungsdaten von GitHub verarbeitet. Naehere Informationen finden sich in der <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Datenschutzerklaerung</a>.</p>
-    <p class="mute">Datenschutzhinweise zu den einzelnen Apps sind im jeweiligen Play-Store-Eintrag verlinkt.</p>
+  <section class="legal">
+    <h2>Datenschutz dieser Webseite</h2>
+    <p>Diese Webseite selbst setzt keine Cookies, kein Tracking und keine Analysewerkzeuge ein. Es findet keine Werbeauslieferung und keine aktive Weitergabe an Dritte statt.</p>
+    <p>Hosting: GitHub Pages. Beim Aufruf der Seite werden technisch erforderliche Verbindungsdaten durch GitHub verarbeitet. Weitere Informationen stehen in der <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Datenschutzerklärung</a>.</p>
   </section>
 
   <footer>
-    <p><strong>Impressum (Angaben gem. &sect;5 TMG)</strong></p>
+    <p><strong>Impressum / Anbieter</strong></p>
     <dl class="legal-grid">
       <dt>Anbieter:</dt><dd>Manfred Wolf</dd>
       <dt>Kennung:</dt><dd>MW_Apps</dd>
       <dt>Anschrift:</dt><dd>Hammerstr. 2<br>91466 Gerhardshofen<br>Deutschland</dd>
-      <dt>E-Mail:</dt><dd><a href="mailto:Mw_Apps@gmx.de">Mw_Apps@gmx.de</a></dd>
+      <dt>E-Mail:</dt><dd><a href="mailto:MW_Apps@gmx.de">MW_Apps@gmx.de</a></dd>
     </dl>
-    <p style="margin-top: 16px;"><strong>Verantwortlich i.S.d. &sect;18 Abs.&nbsp;2 M
+    <p style="margin-top: 18px;">Verantwortlich i.S.d. §18 Abs. 2 MStV: Manfred Wolf, Anschrift wie oben.</p>
+  </footer>
+</main>
+</body>
+</html>
